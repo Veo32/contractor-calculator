@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contractor Take-Home Pay Calculator 2025 | Free Self-Employment Tax Tool</title>
+<meta name="description" content="Free contractor take-home pay calculator. Instantly estimate your real net pay after self-employment tax, federal tax, state tax, and quarterly estimated payments.">
+<meta property="og:title" content="Contractor Take-Home Pay Calculator 2025">
+<meta property="og:description" content="Find out exactly how much you keep after taxes as a freelancer or independent contractor.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Contractor Take-Home Pay Calculator",
+  "description": "Free self-employment tax and take-home pay calculator for US contractors and freelancers.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f2340;
+    --navy-mid: #1a365d;
+    --navy-light: #2a4a7f;
+    --accent: #00c896;
+    --accent-dark: #00a07a;
+    --accent-light: #e0faf4;
+    --warn: #f59e0b;
+    --bg: #f7f9fc;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --text: #1a202c;
+    --muted: #64748b;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* AD PLACEHOLDERS */
+  .ad-top {
+    background: #f1f5f9;
+    border: 1px dashed #cbd5e1;
+    text-align: center;
+    padding: 14px;
+    font-size: 12px;
+    color: #94a3b8;
+    letter-spacing: 0.05em;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    color: white;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+
+  .header-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  header h1 span { color: var(--accent); }
+
+  header p {
+    color: #94b4d4;
+    font-size: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* LAYOUT */
+  .page-wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 820px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { order: -1; }
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .card-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-header .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .card-header h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .card-body { padding: 24px; }
+
+  /* FORM */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 12px;
+    padding-top: 4px;
+  }
+
+  .section-label:not(:first-child) { margin-top: 24px; }
+
+  .field { margin-bottom: 16px; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  input[type=number], select {
+    width: 100%;
+    height: 42px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: white;
+    outline: none;
+    transition: border-color 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  input[type=number]:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0,200,150,0.12);
+  }
+
+  .input-wrap {
+    position: relative;
+  }
+
+  .input-prefix {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 14px;
+    pointer-events: none;
+  }
+
+  .input-wrap input { padding-left: 26px; }
+
+  .radio-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all 0.15s;
+    user-select: none;
+    text-align: center;
+    padding: 0 6px;
+  }
+
+  .radio-group input[type=radio] { display: none; }
+
+  .radio-group input[type=radio]:checked + label {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent-dark);
+    font-weight: 600;
+  }
+
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    cursor: pointer;
+  }
+
+  .toggle-row span {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy-mid);
+  }
+
+  .toggle-arrow {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+
+  .toggle-arrow.open { transform: rotate(180deg); }
+
+  .deductions-body { display: none; padding-top: 8px; }
+  .deductions-body.open { display: block; }
+
+  .calc-btn {
+    width: 100%;
+    height: 50px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: background 0.15s, transform 0.1s;
+    letter-spacing: 0.01em;
+  }
+
+  .calc-btn:hover { background: var(--accent-dark); }
+  .calc-btn:active { transform: scale(0.99); }
+
+  /* RESULTS */
+  .results-placeholder {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--muted);
+  }
+
+  .results-placeholder .big-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+
+  .results-placeholder p { font-size: 14px; }
+
+  .results-content { display: none; }
+  .results-content.visible { display: block; }
+  .results-placeholder.hidden { display: none; }
+
+  .takehome-hero {
+    background: var(--navy);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .takehome-hero .th-label {
+    font-size: 12px;
+    color: #94b4d4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .takehome-hero .th-amount {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .takehome-hero .th-sub {
+    font-size: 13px;
+    color: #94b4d4;
+  }
+
+  .takehome-hero .th-rate {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    color: #cbd5e1;
+    margin-top: 10px;
+  }
+
+  .breakdown-list { list-style: none; margin-bottom: 20px; }
+
+  .breakdown-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .breakdown-list li:last-child { border-bottom: none; }
+
+  .breakdown-list .bl-label { color: var(--muted); }
+  .breakdown-list .bl-val { font-weight: 600; color: var(--text); }
+  .breakdown-list .bl-val.neg { color: #e53e3e; }
+  .breakdown-list .bl-val.pos { color: var(--accent-dark); }
+
+  .tax-bar-wrap { margin-bottom: 20px; }
+
+  .tax-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .tax-bar-track {
+    height: 10px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .tax-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s ease;
+  }
+
+  .quarterly-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .q-card {
+    background: var(--accent-light);
+    border: 1px solid #a7f3d0;
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+
+  .q-card .q-label { font-size: 11px; color: var(--accent-dark); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .q-card .q-date { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+  .q-card .q-amt { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--navy); }
+
+  .disclaimer {
+    font-size: 11px;
+    color: var(--muted);
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    line-height: 1.6;
+  }
+
+  /* SIDEBAR */
+  .sidebar .card { margin-bottom: 20px; }
+
+  .sidebar-tip {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-tip:last-child { border-bottom: none; padding-bottom: 0; }
+  .sidebar-tip .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .sidebar-tip .tip-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .sidebar-tip .tip-text strong { color: var(--text); font-weight: 600; display: block; margin-bottom: 2px; }
+
+  .ad-sidebar {
+    background: #f1f5f9;
+    border: 1px dashed #cbd5e1;
+    text-align: center;
+    padding: 80px 14px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    color: #94a3b8;
+    letter-spacing: 0.05em;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: #94b4d4;
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 13px;
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+
+  .ad-bottom {
+    background: #f1f5f9;
+    border: 1px dashed #cbd5e1;
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: #94a3b8;
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP AD BANNER -->
+<div class="ad-top">ADVERTISEMENT — 728×90 Leaderboard</div>
+
+<!-- HEADER -->
+<header>
+  <p class="header-eyebrow">Free Tool · Updated for 2025 Tax Year</p>
+  <h1>Contractor <span>Take-Home Pay</span> Calculator</h1>
+  <p>Enter your rate and location — see exactly what you keep after self-employment tax, federal &amp; state taxes.</p>
+</header>
+
+<!-- MAIN CONTENT -->
+<div class="page-wrap">
+  <div class="layout">
+
+    <!-- LEFT: FORM + RESULTS -->
+    <div class="main-col">
+
+      <!-- INPUT CARD -->
+      <div class="card" style="margin-bottom:24px">
+        <div class="card-header">
+          <div class="icon">💼</div>
+          <h2>Your Income Details</h2>
+        </div>
+        <div class="card-body">
+
+          <p class="section-label">Income type</p>
+          <div class="field">
+            <div class="radio-group">
+              <input type="radio" name="incomeType" id="t-hourly" value="hourly" checked>
+              <label for="t-hourly">Hourly Rate</label>
+              <input type="radio" name="incomeType" id="t-annual" value="annual">
+              <label for="t-annual">Annual</label>
+              <input type="radio" name="incomeType" id="t-monthly" value="monthly">
+              <label for="t-monthly">Monthly</label>
+            </div>
+          </div>
+
+          <div class="field" id="field-hourly">
+            <label for="hourlyRate">Hourly rate</label>
+            <div class="input-wrap">
+              <span class="input-prefix">$</span>
+              <input type="number" id="hourlyRate" placeholder="75" min="1" max="10000">
+            </div>
+          </div>
+
+          <div class="field" id="field-hours" style="display:none">
+            <label for="hoursPerWeek">Hours per week</label>
+            <input type="number" id="hoursPerWeek" placeholder="40" min="1" max="80" value="40">
+          </div>
+
+          <div class="field" id="field-annual" style="display:none">
+            <label for="annualIncome">Annual gross income</label>
+            <div class="input-wrap">
+              <span class="input-prefix">$</span>
+              <input type="number" id="annualIncome" placeholder="80000" min="1">
+            </div>
+          </div>
+
+          <div class="field" id="field-monthly" style="display:none">
+            <label for="monthlyIncome">Monthly gross income</label>
+            <div class="input-wrap">
+              <span class="input-prefix">$</span>
+              <input type="number" id="monthlyIncome" placeholder="6500" min="1">
+            </div>
+          </div>
+
+          <p class="section-label">Tax profile</p>
+
+          <div class="field">
+            <label for="filingStatus">Filing status</label>
+            <select id="filingStatus">
+              <option value="single">Single</option>
+              <option value="married">Married Filing Jointly</option>
+              <option value="hoh">Head of Household</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="stateSelect">State</label>
+            <select id="stateSelect"></select>
+          </div>
+
+          <!-- DEDUCTIONS TOGGLE -->
+          <div class="toggle-row" id="deductionToggle" onclick="toggleDeductions()">
+            <span>➕ Add deductions (optional)</span>
+            <span class="toggle-arrow" id="toggleArrow">▼</span>
+          </div>
+
+          <div class="deductions-body" id="deductionsBody">
+            <p class="section-label">Deductible expenses</p>
+            <div class="field">
+              <label for="homeOffice">Home office deduction</label>
+              <div class="input-wrap"><span class="input-prefix">$</span>
+              <input type="number" id="homeOffice" placeholder="0" min="0"></div>
+            </div>
+            <div class="field">
+              <label for="healthInsurance">Health insurance premiums</label>
+              <div class="input-wrap"><span class="input-prefix">$</span>
+              <input type="number" id="healthInsurance" placeholder="0" min="0"></div>
+            </div>
+            <div class="field">
+              <label for="retirement">Retirement contributions (SEP-IRA / Solo 401k)</label>
+              <div class="input-wrap"><span class="input-prefix">$</span>
+              <input type="number" id="retirement" placeholder="0" min="0"></div>
+            </div>
+            <div class="field">
+              <label for="otherDeductions">Other business deductions</label>
+              <div class="input-wrap"><span class="input-prefix">$</span>
+              <input type="number" id="otherDeductions" placeholder="0" min="0"></div>
+            </div>
+          </div>
+
+          <button class="calc-btn" onclick="calculate()">Calculate My Take-Home Pay →</button>
+        </div>
+      </div>
+
+      <!-- RESULTS CARD -->
+      <div class="card">
+        <div class="card-header">
+          <div class="icon">📊</div>
+          <h2>Your Take-Home Pay Breakdown</h2>
+        </div>
+        <div class="card-body">
+
+          <div class="results-placeholder" id="placeholder">
+            <div class="big-icon">💰</div>
+            <p>Enter your income details above and click calculate to see your full tax breakdown.</p>
+          </div>
+
+          <div class="results-content" id="resultsContent">
+
+            <div class="takehome-hero">
+              <div class="th-label">Annual take-home pay</div>
+              <div class="th-amount" id="res-takehome">$0</div>
+              <div class="th-sub" id="res-monthly-sub">= $0 / month</div>
+              <div class="th-rate" id="res-effrate">Effective rate: 0%</div>
+            </div>
+
+            <ul class="breakdown-list">
+              <li><span class="bl-label">Gross annual income</span><span class="bl-val pos" id="res-gross">$0</span></li>
+              <li><span class="bl-label">Self-employment tax (15.3%)</span><span class="bl-val neg" id="res-setax">-$0</span></li>
+              <li><span class="bl-label">SE tax deduction (½)</span><span class="bl-val pos" id="res-sededuct">+$0</span></li>
+              <li><span class="bl-label">Total deductions</span><span class="bl-val pos" id="res-deductions">$0</span></li>
+              <li><span class="bl-label">Federal income tax</span><span class="bl-val neg" id="res-federal">-$0</span></li>
+              <li><span class="bl-label">State income tax</span><span class="bl-val neg" id="res-state">-$0</span></li>
+              <li><span class="bl-label" style="font-weight:600;color:#1a202c">Annual take-home</span><span class="bl-val pos" style="font-size:16px" id="res-net">$0</span></li>
+            </ul>
+
+            <div class="tax-bar-wrap">
+              <div class="tax-bar-label"><span>Income breakdown</span><span id="bar-legend"></span></div>
+              <div class="tax-bar-track">
+                <div class="tax-bar-fill" id="bar-takehome" style="background:#00c896;width:0%"></div>
+                <div class="tax-bar-fill" id="bar-setax" style="background:#f59e0b;width:0%"></div>
+                <div class="tax-bar-fill" id="bar-federal" style="background:#e53e3e;width:0%"></div>
+                <div class="tax-bar-fill" id="bar-statetax" style="background:#9b59b6;width:0%"></div>
+              </div>
+              <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap">
+                <span style="font-size:11px;color:#64748b;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#00c896;border-radius:2px;display:inline-block"></span>Take-home</span>
+                <span style="font-size:11px;color:#64748b;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#f59e0b;border-radius:2px;display:inline-block"></span>SE Tax</span>
+                <span style="font-size:11px;color:#64748b;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#e53e3e;border-radius:2px;display:inline-block"></span>Federal</span>
+                <span style="font-size:11px;color:#64748b;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#9b59b6;border-radius:2px;display:inline-block"></span>State</span>
+              </div>
+            </div>
+
+            <p class="section-label" style="margin-top:20px">Quarterly estimated tax payments</p>
+            <div class="quarterly-grid">
+              <div class="q-card"><div class="q-label">Q1 2025</div><div class="q-date">Due Apr 15</div><div class="q-amt" id="q1">$0</div></div>
+              <div class="q-card"><div class="q-label">Q2 2025</div><div class="q-date">Due Jun 16</div><div class="q-amt" id="q2">$0</div></div>
+              <div class="q-card"><div class="q-label">Q3 2025</div><div class="q-date">Due Sep 15</div><div class="q-amt" id="q3">$0</div></div>
+              <div class="q-card"><div class="q-label">Q4 2025</div><div class="q-date">Due Jan 15, 2026</div><div class="q-amt" id="q4">$0</div></div>
+            </div>
+
+            <div class="disclaimer">
+              ⚠️ <strong>Disclaimer:</strong> These calculations are for estimation purposes only and do not constitute tax advice. Tax laws change and individual circumstances vary. Please consult a qualified tax professional for advice specific to your situation.
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-col -->
+
+    <!-- RIGHT: SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- AD SIDEBAR -->
+      <div class="ad-sidebar">ADVERTISEMENT<br>300×250 Medium Rectangle</div>
+
+      <!-- TIPS CARD -->
+      <div class="card">
+        <div class="card-header">
+          <div class="icon">💡</div>
+          <h2>Tax-saving tips</h2>
+        </div>
+        <div class="card-body" style="padding-top:8px">
+          <div class="sidebar-tip">
+            <span class="tip-icon">📁</span>
+            <div class="tip-text"><strong>Track every expense</strong>Business expenses reduce your taxable income dollar-for-dollar. Keep receipts for software, equipment, and travel.</div>
+          </div>
+          <div class="sidebar-tip">
+            <span class="tip-icon">🏦</span>
+            <div class="tip-text"><strong>Open a SEP-IRA</strong>Contribute up to 25% of net self-employment income (max $69,000 in 2025) — fully tax-deductible.</div>
+          </div>
+          <div class="sidebar-tip">
+            <span class="tip-icon">📅</span>
+            <div class="tip-text"><strong>Pay quarterly taxes</strong>Missing IRS quarterly deadlines triggers a penalty. Use the amounts above as your guide.</div>
+          </div>
+          <div class="sidebar-tip">
+            <span class="tip-icon">🏠</span>
+            <div class="tip-text"><strong>Home office deduction</strong>If you use a room exclusively for work, deduct a portion of your rent/mortgage and utilities.</div>
+          </div>
+          <div class="sidebar-tip">
+            <span class="tip-icon">💊</span>
+            <div class="tip-text"><strong>Deduct health insurance</strong>Self-employed individuals can deduct 100% of health insurance premiums paid for themselves and family.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECOND SIDEBAR AD -->
+      <div class="ad-sidebar" style="padding:50px 14px">ADVERTISEMENT<br>300×600 Half Page</div>
+
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM AD -->
+<div class="ad-bottom">ADVERTISEMENT — 728×90 Leaderboard</div>
+
+<footer>
+  <p style="margin-bottom:6px">Contractor Take-Home Pay Calculator &copy; 2025 · For informational purposes only</p>
+  <p>Not tax advice · <a href="#">Privacy Policy</a> · <a href="#">Disclaimer</a></p>
+</footer>
+
+<script>
+const states = [
+  {name:"Alabama",rate:5.0},{name:"Alaska",rate:0},{name:"Arizona",rate:2.5},
+  {name:"Arkansas",rate:4.7},{name:"California",rate:9.3},{name:"Colorado",rate:4.4},
+  {name:"Connecticut",rate:5.0},{name:"Delaware",rate:6.6},{name:"Florida",rate:0},
+  {name:"Georgia",rate:5.49},{name:"Hawaii",rate:8.25},{name:"Idaho",rate:5.8},
+  {name:"Illinois",rate:4.95},{name:"Indiana",rate:3.05},{name:"Iowa",rate:5.7},
+  {name:"Kansas",rate:5.2},{name:"Kentucky",rate:4.0},{name:"Louisiana",rate:4.25},
+  {name:"Maine",rate:7.15},{name:"Maryland",rate:5.75},{name:"Massachusetts",rate:5.0},
+  {name:"Michigan",rate:4.25},{name:"Minnesota",rate:9.85},{name:"Mississippi",rate:4.7},
+  {name:"Missouri",rate:4.95},{name:"Montana",rate:6.75},{name:"Nebraska",rate:6.64},
+  {name:"Nevada",rate:0},{name:"New Hampshire",rate:0},{name:"New Jersey",rate:8.97},
+  {name:"New Mexico",rate:5.9},{name:"New York",rate:10.9},{name:"North Carolina",rate:4.75},
+  {name:"North Dakota",rate:2.5},{name:"Ohio",rate:3.99},{name:"Oklahoma",rate:4.75},
+  {name:"Oregon",rate:9.9},{name:"Pennsylvania",rate:3.07},{name:"Rhode Island",rate:5.99},
+  {name:"South Carolina",rate:6.5},{name:"South Dakota",rate:0},{name:"Tennessee",rate:0},
+  {name:"Texas",rate:0},{name:"Utah",rate:4.65},{name:"Vermont",rate:8.75},
+  {name:"Virginia",rate:5.75},{name:"Washington",rate:0},{name:"West Virginia",rate:5.12},
+  {name:"Wisconsin",rate:7.65},{name:"Wyoming",rate:0}
+];
+
+const sel = document.getElementById('stateSelect');
+states.forEach(s => {
+  const o = document.createElement('option');
+  o.value = s.rate;
+  o.textContent = s.name + (s.rate === 0 ? ' (No income tax)' : ' (' + s.rate + '%)');
+  if (s.name === 'Texas') o.selected = true;
+  sel.appendChild(o);
+});
+
+document.querySelectorAll('input[name=incomeType]').forEach(r => {
+  r.addEventListener('change', () => {
+    const v = r.value;
+    document.getElementById('field-hourly').style.display = v==='hourly'?'block':'none';
+    document.getElementById('field-hours').style.display = v==='hourly'?'block':'none';
+    document.getElementById('field-annual').style.display = v==='annual'?'block':'none';
+    document.getElementById('field-monthly').style.display = v==='monthly'?'block':'none';
+  });
+});
+
+function toggleDeductions() {
+  const body = document.getElementById('deductionsBody');
+  const arrow = document.getElementById('toggleArrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+const stdDeduction = { single: 14600, married: 29200, hoh: 21900 };
+
+const brackets2025 = {
+  single: [[11600,0.10],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]],
+  married: [[23200,0.10],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]],
+  hoh: [[16550,0.10],[63100,0.12],[100500,0.22],[191950,0.24],[243700,0.32],[609350,0.35],[Infinity,0.37]]
+};
+
+function calcFederalTax(taxableIncome, filing) {
+  const bk = brackets2025[filing];
+  let tax = 0, prev = 0;
+  for (const [limit, rate] of bk) {
+    if (taxableIncome <= prev) break;
+    const slice = Math.min(taxableIncome, limit) - prev;
+    tax += slice * rate;
+    prev = limit;
+  }
+  return Math.max(0, tax);
+}
+
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+function calculate() {
+  const type = document.querySelector('input[name=incomeType]:checked').value;
+  let gross = 0;
+
+  if (type === 'hourly') {
+    const rate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+    const hrs = parseFloat(document.getElementById('hoursPerWeek').value) || 40;
+    gross = rate * hrs * 52;
+  } else if (type === 'annual') {
+    gross = parseFloat(document.getElementById('annualIncome').value) || 0;
+  } else {
+    gross = (parseFloat(document.getElementById('monthlyIncome').value) || 0) * 12;
+  }
+
+  if (gross <= 0) { alert('Please enter your income.'); return; }
+
+  const filing = document.getElementById('filingStatus').value;
+  const stateRate = parseFloat(document.getElementById('stateSelect').value) || 0;
+  const homeOffice = parseFloat(document.getElementById('homeOffice').value) || 0;
+  const health = parseFloat(document.getElementById('healthInsurance').value) || 0;
+  const retirement = parseFloat(document.getElementById('retirement').value) || 0;
+  const other = parseFloat(document.getElementById('otherDeductions').value) || 0;
+
+  const seTax = gross * 0.9235 * 0.153;
+  const seDeduct = seTax / 2;
+  const totalDeductions = homeOffice + health + retirement + other;
+  const std = stdDeduction[filing];
+  const federalTaxable = Math.max(0, gross - seDeduct - totalDeductions - std);
+  const federalTax = calcFederalTax(federalTaxable, filing);
+  const stateTaxable = Math.max(0, gross - totalDeductions);
+  const stateTax = stateTaxable * (stateRate / 100);
+  const totalTax = seTax + federalTax + stateTax;
+  const netAnnual = gross - totalTax;
+  const netMonthly = netAnnual / 12;
+  const effRate = (totalTax / gross) * 100;
+  const quarterly = (federalTax + seTax) / 4;
+
+  document.getElementById('res-gross').textContent = fmt(gross);
+  document.getElementById('res-setax').textContent = '-' + fmt(seTax);
+  document.getElementById('res-sededuct').textContent = '+' + fmt(seDeduct);
+  document.getElementById('res-deductions').textContent = fmt(totalDeductions + std);
+  document.getElementById('res-federal').textContent = '-' + fmt(federalTax);
+  document.getElementById('res-state').textContent = '-' + fmt(stateTax);
+  document.getElementById('res-net').textContent = fmt(netAnnual);
+  document.getElementById('res-takehome').textContent = fmt(netAnnual);
+  document.getElementById('res-monthly-sub').textContent = '= ' + fmt(netMonthly) + ' / month';
+  document.getElementById('res-effrate').textContent = 'Effective tax rate: ' + effRate.toFixed(1) + '%';
+
+  const q = fmt(quarterly);
+  document.getElementById('q1').textContent = q;
+  document.getElementById('q2').textContent = q;
+  document.getElementById('q3').textContent = q;
+  document.getElementById('q4').textContent = q;
+
+  const thPct = Math.round((netAnnual / gross) * 100);
+  const sePct = Math.round((seTax / gross) * 100);
+  const fedPct = Math.round((federalTax / gross) * 100);
+  const stPct = Math.round((stateTax / gross) * 100);
+  document.getElementById('bar-takehome').style.width = thPct + '%';
+  document.getElementById('bar-setax').style.width = sePct + '%';
+  document.getElementById('bar-federal').style.width = fedPct + '%';
+  document.getElementById('bar-statetax').style.width = stPct + '%';
+
+  document.getElementById('placeholder').classList.add('hidden');
+  document.getElementById('resultsContent').classList.add('visible');
+  document.getElementById('resultsContent').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(); });
+</script>
+</body>
+</html>
